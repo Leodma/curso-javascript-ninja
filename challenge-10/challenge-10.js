@@ -26,11 +26,11 @@ e faça a indentação correta.
     propriedade, usando os valores passados por parâmetro.
     */
     var operation = {
-        '+': function(n1,n2){return n1 + n2},
-        '-':function(n1,n2){return n1 - n2},
-        '*':function(n1,n2){return n1 * n2},
-        '/':function(n1,n2){return n1 / n2},
-        '%':function(n1,n2){return n1 % n2},
+        '+':function(n1,n2){return n1 + n2;},
+        '-':function(n1,n2){return n1 - n2;},
+        '*':function(n1,n2){return n1 * n2;},
+        '/':function(n1,n2){return n1 / n2;},
+        '%':function(n1,n2){return n1 % n2;}
 
     };
 
@@ -70,6 +70,8 @@ e faça a indentação correta.
                 return operation[operador](n1,n2);
             };
         };
+
+        return false;
     };
 
     /*
