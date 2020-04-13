@@ -36,20 +36,12 @@
     `name`: String
     `pages`: Number
     */
-    var book1 = {
-        'name':'Dr Sono',
-        'pages': 852
-    };
-    var book2 = {
-        'name':' O iluminado',
-        'pages': 970
-    };
-    var book3 = {
-        'name': 'Setembro de 1963',
-        'pages': 830
-    };
-
-    books.push(book1, book2, book3);
+    
+    books.push( {name:'DR Sono', pages:852},
+                {name:'O Iluminado', pages: 970},
+                {name: 'Setembro de 1963', pages: 835} 
+            );
+    
     console.log( '\nLista de livros:' );
 
     /*
