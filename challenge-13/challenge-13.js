@@ -165,9 +165,8 @@
     ID par. Atribua o valor à uma variável chamada `filter`.
     */
     var filter = map.filter(function(uf){
-        if (!(uf.id %2)){
-            return uf;
-         };  
+        return !(uf.id %2); // o filter retorna o elemento que esta sendo passado por parametro de a condição for true.
+          
     });
 
     /*
