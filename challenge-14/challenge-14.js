@@ -10,19 +10,11 @@
     Mostre esse array no console.
     */
     console.log( 'Number Objects Array:' );
-    var numberObjects = [
-        {'number':1},
-        {'number':2},
-        {'number':3},
-        {'number':4},
-        {'number':5},
-        {'number':6},
-        {'number':7},
-        {'number':8},
-        {'number':9},
-        {'number':10}
-        
-    ];
+    var numberObjects = [];
+
+    for (var i = 1; i < 11; i++ ){
+        numberObjects.push({number:i});
+    };
 
     console.log(numberObjects);
     /*
@@ -43,13 +35,23 @@
     no console.
     */
     console.log( '\nJust module of division by 2 or 3:' );
-    var justMod2Or3 = []
+    
+    var justMod2Or3 = justNumbers.filter(function(numero){
+        return !(numero%2) || !(numero %3);
+    });
+
+    /*
+    Usando o foreach() ao invés do filter
+    justNumbers = [];
     justNumbers.forEach(function(numero){
         if (!(numero%2) || !(numero%3)){
             justMod2Or3.push(numero);
         };
     });
+    */
+
     console.log(justMod2Or3);
+   
     /*
     Declare uma variável chamada operation que receba, do array criado acima,
     um valor reduzido pela seguinte operação:
@@ -61,7 +63,6 @@
     console.log( '\nOperation:' );
     var operation = justMod2Or3.reduce(function(total, atual){
         return (total + 1) * atual;
-
     },0);
 
     console.log(operation);
@@ -85,7 +86,7 @@
     falada, como se você estivesse falando em código xD
     */
     console.log( '\nSeu nome na língua do "P":' );
-    var name = ['J','U','B','I','S','C','R','E','U','D','O'];
+    var name = ['JU','BIS','CRE','U','DO'];
     console.log(
         name.reduce(function(nome, letra){
             return  nome + "P" + letra + " ";
