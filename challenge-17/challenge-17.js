@@ -50,7 +50,7 @@
     Mostre o resultado no console:
     */
     console.log( '\nTrocando "A" e "a" por "4":' );
-    console.log(text.replace(/A|a/g,'4'));
+    console.log(text.replace(/a/gi,'4'));
     // ?
 
     /*
@@ -77,18 +77,20 @@
     */
     console.log( '\nMeses representados por números:' );
     function getMonthNumber(mes){
-        var mes = mes.toLowerCase();
-        var meses = ['janeiro','fereveiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-        var numeroMes = (meses.indexOf(mes) + 1).toString();
-        if (numeroMes === '-1'){
-            return "mes não encontrado, verifique o texto";
-        };
-
-        if (numeroMes.length === 1){
-            return '0' + numeroMes;
-        }else{
-            return numeroMes;
-        };
+        var meses = {
+            janeiro:'01',
+            fevereiro:'02',
+            março:'03',
+            abril:'04',
+            maio:'05',
+            junho:'06',
+            julho:'07',
+            agosto:'08',
+            setembro:'09',
+            outubro:'10',
+            novembro:'11',
+            dezembro:'12'};
+        return meses[mes.toLowerCase()] ? meses[mes.toLowerCase()] : 'mês inexistente';
 
     };
     
@@ -118,11 +120,11 @@
     console o resultado.
     */
     console.log( '\nReplace de datas:' );
+    function replaceDate(regex, dia, mes, ano){
+        return [dia, getMonthNumber(mes), ano].join('/');
+    }
     console.log(
-        text.replace(regexDate, function(total, m1,m2,m3){ 
-             return [m1,getMonthNumber(m2),m3].join('/');
-         })
-    );
+        text.replace(regexDate, replaceDate));
     
     // ?
 })();
