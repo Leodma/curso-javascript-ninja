@@ -16,36 +16,27 @@
     - "735 500 794 - 22"
     - "101.123-131x32"
     */
+
+    var cpfs = ["049-214 3421-1","210.458.522-05","735 500 794 - 22","101.123-131x32"];
     console.log( 'Limpando CPFs:' );
     
    function cleanCPF(cpf){
-       var regexCPF = /(\d)/g;
-       return cpf.match(regexCPF);
+       return cpf.replace(/\D/g,'');
    }
 
-    console.log(cleanCPF("049-214 3421-1").join(''));
-    console.log(cleanCPF("210.458.522-05").join(''));
-    console.log(cleanCPF("735 500 794 - 22").join(''));
-    console.log(cleanCPF("101.123-131x32").join(''));
+   cpfs.forEach(function(cpf){
+        console.log(cleanCPF(cpf));
+   });
     /*
     Usando os CPFs limpos acima, deixe-os com a formatação correta de CPF.
     Ex.: "999.999.999-99"
     Mostre o resultado no console.
     */
     console.log( '\nFormatando CPFs corretamente:' );
-    function formataCPF(arrayCPF){
-        if (arrayCPF.length !== 11) {
-            return " CPF inválido";
-        };
-
-        var cpf = arrayCPF.join('');
-        return cpf.substr(0,3) + '.' + cpf.substr(3,3) + '.' + cpf.substr(6,3) + '-' + cpf.substr(7,2);
-
-    };
-    console.log(formataCPF(cleanCPF("049-214 3421-1")));
-    console.log(formataCPF(cleanCPF("210.458.522-05")));
-    console.log(formataCPF(cleanCPF("735 500 794 - 22")));
-    console.log(formataCPF(cleanCPF("101.123-131x32")));
+   
+    cpfs.forEach(function(cpf){
+        console.log(cleanCPF(cpf).replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4'));
+    });
     
     /*
     Crie uma expressão regular que faça match com as palavras "junho" ou "julho",
@@ -60,7 +51,7 @@
     */
     console.log( '\nMatch com as palavras "junho" ou "julho" para a frase "Os meses de janeiro, junho e julho começam com a letra j.":' );
     var frase =  "Os meses de janeiro, junho e julho começam com a letra j.";
-    console.log(frase.match(/j\w{3}o/g));
+    console.log(frase.match(/ju[nl]ho/g));
 
     /*
     Crie uma expressão regular que faça o match com a abertura de uma tag
@@ -113,10 +104,10 @@
     */
     console.log( '\nFazer replace dos textos das tags:' );
     tagsHTML =  "<h1>Título da página</h1><p>Este é um parágrafo</p><footer>Rodapé</footer>";
-    var regexHtml = /(<\w+>)([^<]+)(<\/\w+>)/g;
-    tagsHTML.replace(regexHtml,function(match, tag1, texto, tag2){
-        var tag = tag1.slice(1,-1);
-        console.log(tag1 + 'o texto dentro da tag "'+tag+'" é ' + texto + '"' + tag2);
-    });
-
+    var regexHtml = /<(\w+)>([^<]+)<\/\w+>/g;
+    console.log(
+        tagsHTML.replace(regexHtml,
+            '<$1>O texto dentro da tag "$1" é "$2"</$1>\n'
+        )
+    );
 })();
