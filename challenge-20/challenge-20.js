@@ -16,8 +16,8 @@
     nome, `username` deve receber "Desconhecido".
     Com a resposta, mostre um alert com a mensagem "Bem vindo [USERNAME]!"
     */
-    var username = prompt('Qual seu nome?');
-    alert('Bem vindo ' + username);
+    var username = prompt('Qual seu nome?') || 'Desconhecido';
+    alert('Bem vindo ' + username + '!');
 
     /*
     Agora, pergunte ao usuário "Qual o seu e-mail?", atribuindo o resultado à
@@ -133,9 +133,9 @@
         - "agua_@evida.br.com"
     */
     function isValidEmail(email){
+        
         var emailRegex = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{0,2})?$/;
-        // var validaEmail = email.match(emailRegex).join('');
-       return email.match(emailRegex);
+        return email.match(emailRegex);
         
     };
 
