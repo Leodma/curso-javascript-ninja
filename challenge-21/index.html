@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet"> 
+        <style type="text/css">
+            body{
+                background-color: #2c2c2c;
+                color:#f2f2f2;
+            }
+
+            #cronometro{
+        
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100vh;
+            }
+
+            #contador{
+                font-family: 'Press Start 2P', cursive;
+                padding: 20px 50px;
+                margin-bottom: 50px;;
+                background-color: #fff;
+                border: 2px solid #c4c4c4;
+                border-radius: 10px;
+                font-size: larger;
+                color: #2c2c2c;
+                width: 200px;
+                text-align: center;
+            }
+
+            a.button1{
+                display:inline-block;
+                padding:0.35em 1.2em;
+                border:0.1em solid #FFFFFF;
+                margin:0 0.5em ;
+                border-radius:0.12em;
+                box-sizing: border-box;
+                text-decoration:none;
+                font-family:'Roboto',sans-serif;
+                font-weight:300;
+                color:#FFFFFF;
+                text-align:center;
+                transition: all 0.2s;
+            }
+            a.button1:hover{
+                color:#000000;
+            }
+            a.start:hover{
+                background-color: green;
+            }
+            a.stop:hover{
+                background-color:#e00833;
+            }
+            a.restart:hover{
+                background-color: indigo;
+            }
+
+            
+            @media all and (max-width:30em){
+                 a.button1{
+                    display:block;
+                    margin:0.4em auto;
+                }
+            }
+        </style>
+
+        <title>Cronômetro</title>
+    </head>
+    <body>
+        <div id="cronometro">
+            <div data-js='contador' id="contador"> 0:0:0:0</div>
+            <div id="botoes">
+               
+                <a  href="#" data-js = 'btStart' class="button1 start" id="iniciar">Iniciar</a>
+                <a href="#" data-js = 'btStop' class="button1 stop" id="parar">Parar<a>
+                <a href="#" data-js = 'btRestart' class="button1 restart" id="reiniciar">Reiniciar</a>
+            </div>
+        </div>
+        
+    <script src="challenge-21.js"></script>
+    </body>
+</html>
