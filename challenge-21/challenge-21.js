@@ -1,5 +1,5 @@
 /*
-O desafio de hoje será um pequeno projeto: um cronômetro!
+O desafio de hoje será um cronômetro!
 As regras para criação do cronômetro são as seguintes:
 1. Crie um arquivo index.html e adicione esse script a ele;
 2. Crie um campo `input` do tipo `text`, e inicie-o com um valor 0 (zero).
@@ -67,9 +67,7 @@ dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
     };
    
     btStart.addEventListener('click', startCounter, false);
-
     btStop.addEventListener('click', stopCounter, false);
-
     btRestart.addEventListener('click', restartCounter, false);
 
 
