@@ -45,9 +45,9 @@
     */
     function sum(){
       console.log('Argumentos:',arguments);
-      var result = Array.prototype.reduce.call(arguments, function(acumulate, actual){
+      var result = Array.prototype.reduce.apply(arguments, [function(acumulate, actual){
         return acumulate + actual;
-      });
+      }]);
 
       return result;
 
