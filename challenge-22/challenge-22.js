@@ -45,11 +45,11 @@
     */
     function sum(){
       console.log('Argumentos:',arguments);
-      var result = Array.prototype.reduce.apply(arguments, [function(acumulate, actual){
-        return acumulate + actual;
-      }]);
+      return Array.prototype.reduce.call(arguments, function(acumulate, actual){
+    return +acumulate + +actual;
+      });
 
-      return result;
+
 
     }
 
@@ -89,12 +89,9 @@
     
     function justNumbers(text){
       var regex = /(\d+)/g;
-      var result = text.match(regex);
-      result.forEach(function(num, i){
-        result[i] = +num;
-      });
-      return result;
-    };
+      return text.match(regex);
+      
+  };
 
     console.log(justNumbers.toString());
     /*
@@ -111,6 +108,6 @@
     números desse array e mostre o resultado no console.
     */
     console.log( '\nSomar números entrados pelo usuário:' );
-    console.log(sum(...numbers));
+    console.log(sum.apply(sum, numbers));
     // ?
 })();
