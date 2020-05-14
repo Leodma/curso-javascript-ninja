@@ -1,0 +1,113 @@
+body{
+    background-color: black;
+  
+    color: #60F0D6;
+    font-family: Roboto, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+main{
+    margin: auto;
+    width: 300px;
+    height: 470px;
+    background-color: #2c2c2c;
+    display: grid;
+    align-content: stretch;
+    justify-content: stretch;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 105px auto;
+    grid-template-areas: 
+        "display display"
+        "keys operators";
+
+}
+
+.display{
+    grid-area: display;
+    background-color:#3a3939;
+    text-align: right;
+    color:#60F0D6;
+    padding: 20px;
+    font-size: 40px;
+    text-overflow: clip;
+    overflow:hidden;
+}
+
+.keys{
+    grid-area: keys;
+    color: darkgrey;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(5, 1fr); 
+    justify-content: stretch;
+    align-content: stretch;
+}
+
+.numbers, .ce, .equal, .operator{
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.keys .ce{
+    grid-column: 1/-1;
+    background-color:#2c2c2c;
+    color: #60F0D6;
+}
+
+.ce:hover{
+    background-color:#60F0D6;
+    color: #2c2c2c;
+}
+
+.keys .equal{
+    grid-row: 5;
+    grid-column: 2/-1;
+    color: #F06060;
+}
+
+.keys .equal:hover{
+    grid-row: 5;
+    grid-column: 2/-1;
+    background-color: #F06060;
+    color: #2c2c2c;
+}
+
+.operators{
+    grid-area: operators;
+    background-color:#f2f2f2;
+    color: #F06060;
+    display: grid;
+    grid-template-rows: repeat(5,1fr);
+    justify-content: stretch;
+}
+
+.operator{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.operators .plus{
+    grid-row: 4/-1;
+}
+
+.numbers:hover{
+    background-color:#60F0D6;
+    color: #2c2c2c;
+}
+.operator:hover{
+    background-color:#F06060;
+    color: #2c2c2c;;
+}
+
+.operator:active, 
+.numbers:active, 
+.ce:active, 
+.equal:active{
+    background-color: #f2f2f2;
+    color: #2c2c2c;
+}
