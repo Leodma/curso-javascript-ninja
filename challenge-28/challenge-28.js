@@ -13,6 +13,8 @@
   deve ser limpo e enviado somente os números para a requisição abaixo;
   - Ao submeter esse formulário, deve ser feito um request Ajax para a URL:
   "https://viacep.com.br/ws/[CEP]/json/", onde [CEP] será o CEP passado
+
+  http://apps.widenet.com.br/busca-cep/api-de-consulta
   no input criado no HTML;
   - Essa requisição trará dados de um CEP em JSON. Preencha campos na tela
   com os dados recebidos.
@@ -25,3 +27,112 @@
   - Utilize a lib DOM criada anteriormente para facilitar a manipulação e
   adicionar as informações em tela.
   */
+(function(win, doc){
+  'use strict';
+
+  function DOM(texto){
+    this.element = doc.querySelector(texto);
+  };
+  DOM.prototype.on = function on(evento, fn){
+          this.element.addEventListener(evento, fn, false);
+        };
+  DOM.prototype.getElement = function get(){return this.element;};
+  DOM.prototype.getValue = function value(){return this.element.value};
+  DOM.prototype.setText = function text(texto){ this.element.innerHTML = texto};
+  DOM.prototype.insert = function insert(child) {this.element.appendChild(child)};
+  DOM.prototype.insertText = function insertText(text){this.element.innerHTML = text};
+  DOM.prototype.cleanValue = function cleanValue(){this.element.value = ""};
+  DOM.prototype.remove = function remove() {
+    let child = this.element.firstElementChild;
+    if (child)
+      this.element.removeChild(child)
+    return;
+  };
+  
+ 
+
+  function loadAnimator(){
+    let fragment = doc.createDocumentFragment();
+    let animator = doc.createElement('img')
+    animator.src = '802.gif';
+    fragment.appendChild(animator)
+    return fragment;
+  }
+
+  function CEPValidate(cep){
+    var regexp = /(\d{5})-(\d{3})/;
+    return cep.match(regexp);
+  };
+
+
+
+  function ajaxRequest(cep){
+
+    if (CEPValidate(cep)){ 
+      ajax.open('GET', 'https://ws.apicep.com/cep/'+ cep + '.json');
+      ajax.send();
+      $response.remove();
+      $response.insert(loadAnimator());
+      ajax.addEventListener('readystatechange', function(){
+        console.log('carregando.... estado:', ajax.readyState);
+      }); 
+    
+      ajax.addEventListener('loadend', function(){
+        
+        if (ajax.readyState === 4 &&  ajax.status === 200){
+          let CEPQuery = JSON.parse(ajax.responseText);
+          $response.remove();
+          $response.insert(createTable(CEPQuery)); 
+          $CEP.cleanValue();
+        }else{
+          $response.remove();
+          $response.insertText('Serviço indisponível, tente mais tarde.');
+        };
+      }); 
+    }else{
+      alert("Entre com o CEP correto \n Formato 00000-000");
+      $CEP.cleanValue();
+      return;
+    };
+  };
+  
+
+  const $CEP = new DOM('[data-js="CEP-input"]');
+  const $response = new DOM('[data-js="resposta"]');
+  const $status = new DOM('[data-js="status-display"]');
+  const button = new DOM('[data-js="submit"]');
+  const ajax = new XMLHttpRequest();
+
+  function insertLine(table, key, value){
+    let row = table.insertRow(-1);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    cell1.innerHTML = key;
+    cell2.innerHTML = value;
+  };
+
+  function createTable(object){
+    let fragment = doc.createDocumentFragment();
+    if(object.ok){
+      let table = doc.createElement('table');
+      insertLine(table, "Logradouro", object.address);
+      insertLine(table, "Bairro", object.district);
+      insertLine(table, "Estado", object.address);
+      insertLine(table, "Cidade", object.city);
+      insertLine(table, "CEP", object.code);
+      fragment.appendChild(table);
+    }else{
+      let notFound = doc.createElement('p');
+      notFound.innerHTML = "CEP não encontrado, digite novamente";
+      fragment.appendChild(notFound); 
+    };
+  
+    return fragment;
+  }
+
+  button.on('click', function(event){ 
+    ajaxRequest($CEP.getValue());
+  });
+
+   
+})(window, document);

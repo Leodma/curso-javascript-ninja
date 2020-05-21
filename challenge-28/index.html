@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta CEP</title>
+    <link rel="stylesheet" type="text/css"  href="style.css">
+</head>
+<body>
+    <h2>Consulta CEP</h2>
+    <h6>Fonte de busca:  "https://viacep.com.br"</h6>
+    <section id='busca-cep'>
+           <!-- <label for='CEP'>CEP: </label> -->
+           <input type="text" name='CEP' data-js="CEP-input" maxlength="9"  placeholder = "00000-000"  pattern="\d{5}-\d{3}" title="Insira 8 numeros no campo no formato 00000-000"><br>
+           <summary>Digite somente números</summary>
+           <button  data-js="submit">Consultar</button>
+       
+      
+    </section>
+
+    <!-- <section class='status success' data-js='status-display'>
+        <img src="802.gif">
+    </section> -->
+
+    <section id='resposta-consulta' data-js="resposta">
+      
+    </section>
+   
+    <script src="challenge-28.js"></script>
+    
+</body>
+</html>
