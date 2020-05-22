@@ -33,14 +33,11 @@
   function DOM(texto){
     this.element = doc.querySelector(texto);
   };
-  DOM.prototype.on = function on(evento, fn){
-          this.element.addEventListener(evento, fn, false);
-        };
+  DOM.prototype.on = function on(evento, fn){this.element.addEventListener(evento, fn, false);};
   DOM.prototype.getElement = function get(){return this.element;};
   DOM.prototype.getValue = function value(){return this.element.value};
   DOM.prototype.setText = function text(texto){ this.element.innerHTML = texto};
   DOM.prototype.insert = function insert(child) {this.element.appendChild(child)};
-  DOM.prototype.insertText = function insertText(text){this.element.innerHTML = text};
   DOM.prototype.cleanValue = function cleanValue(){this.element.value = ""};
   DOM.prototype.remove = function remove() {
     let child = this.element.firstElementChild;
@@ -49,60 +46,60 @@
     return;
   };
   
- 
-
-  function loadAnimator(){
-    let fragment = doc.createDocumentFragment();
-    let animator = doc.createElement('img')
-    animator.src = '802.gif';
-    fragment.appendChild(animator)
-    return fragment;
-  }
-
-  function CEPValidate(cep){
-    var regexp = /(\d{5})-(\d{3})/;
-    return cep.match(regexp);
-  };
-
-
-
-  function ajaxRequest(cep){
-
-    if (CEPValidate(cep)){ 
-      ajax.open('GET', 'https://ws.apicep.com/cep/'+ cep + '.json');
-      ajax.send();
-      $response.remove();
-      $response.insert(loadAnimator());
-      ajax.addEventListener('readystatechange', function(){
-        console.log('carregando.... estado:', ajax.readyState);
-      }); 
-    
-      ajax.addEventListener('loadend', function(){
-        
-        if (ajax.readyState === 4 &&  ajax.status === 200){
-          let CEPQuery = JSON.parse(ajax.responseText);
-          $response.remove();
-          $response.insert(createTable(CEPQuery)); 
-          $CEP.cleanValue();
-        }else{
-          $response.remove();
-          $response.insertText('Serviço indisponível, tente mais tarde.');
-        };
-      }); 
-    }else{
-      alert("Entre com o CEP correto \n Formato 00000-000");
-      $CEP.cleanValue();
-      return;
-    };
-  };
-  
-
   const $CEP = new DOM('[data-js="CEP-input"]');
   const $response = new DOM('[data-js="resposta"]');
   const $status = new DOM('[data-js="status-display"]');
   const button = new DOM('[data-js="submit"]');
   const ajax = new XMLHttpRequest();
 
+  function loadAnimator(image){
+    let fragment = doc.createDocumentFragment();
+    let animator = doc.createElement('img');
+    animator.src = image;
+    fragment.appendChild(animator)
+    return fragment;
+  }
+
+  function setMessage(type){
+    let message = {
+      error:"Serviço indisponível, tente mais tarde.",
+      incorrect:"Digite o CEP no formato 00000-000",
+      notFound:"CEP não encontrado, digite novamente",
+    };
+    return message[type];
+  };
+
+  function CEPValidate(cep){
+    var regexp = /(\d{5})-(\d{3})/;
+    return cep.match(regexp);
+  };
+
+  function handleResponse(){    
+    if (ajax.readyState === 4 &&  ajax.status === 200){
+      let CEPQuery = JSON.parse(ajax.responseText);
+      $response.remove();
+      $response.insert(createTable(CEPQuery)); 
+      $CEP.cleanValue();
+      return;
+    };
+      $response.remove();
+      $response.setText(setMessage('error'));
+  };
+
+  function ajaxRequest(cep){
+    if (CEPValidate(cep)){ 
+      ajax.open('GET', 'https://ws.apicep.com/cep/'+ cep + '.json');
+      ajax.send();
+      ajax.addEventListener('loadend', handleResponse);
+      $response.remove();
+      $response.insert(loadAnimator('802.gif'));
+      return;
+    };
+      alert(setMessage('incorrect'));
+      $CEP.cleanValue();
+      return;
+  };
+  
   function insertLine(table, key, value){
     let row = table.insertRow(-1);
     let cell1 = row.insertCell(0);
@@ -123,16 +120,16 @@
       fragment.appendChild(table);
     }else{
       let notFound = doc.createElement('p');
-      notFound.innerHTML = "CEP não encontrado, digite novamente";
+      notFound.innerHTML = setMessage('notFound');
       fragment.appendChild(notFound); 
     };
   
     return fragment;
   }
 
-  button.on('click', function(event){ 
+  button.on('submit', function(event){ 
+    event.preventDefault();
     ajaxRequest($CEP.getValue());
   });
-
-   
+ 
 })(window, document);
