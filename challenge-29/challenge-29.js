@@ -40,6 +40,7 @@
    const CompanyName = new DOM('[data-js="company-name"]');
    const CompanyPhone = new DOM('[ data-js ="company-phone"]');
    let inputsForm = new DOM ('input');
+   let form = new DOM('[data-js="car-form"]');
    const button = new DOM('button');
    let table = new DOM('table');
    const ajax = new XMLHttpRequest();
@@ -74,7 +75,7 @@
       };
     });
 
-    button.on('click', function(event){
+    form.on('submit', function(event){
       event.preventDefault();
       table.insertLastRow(inputsForm.getValues());
       });
