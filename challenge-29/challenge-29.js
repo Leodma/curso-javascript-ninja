@@ -35,5 +35,53 @@
   E aqui nesse arquivo, faça a lógica para cadastrar os carros, em um módulo
   que será nomeado de "app".
   */
+ function api(){
+
+   const CompanyName = new DOM('[data-js="company-name"]');
+   const CompanyPhone = new DOM('[ data-js ="company-phone"]');
+   let inputsForm = new DOM ('input');
+   const button = new DOM('button');
+   let table = new DOM('table');
+   const ajax = new XMLHttpRequest();
+  //  const handleTable = new handleHTMLTable();
+ 
+   function handleResponse( ){
+     if (ajax.readyState === 4 &&  ajax.status === 200){
+       return ajax.response;
+     };
+     return null
+   };
+
+   function fillNameCompany(data){
+     CompanyName.setText(data.name);
+     CompanyPhone.setText(data.phone);
+   };
+
+ 
+   ajax.open('GET', 'http://127.0.0.1:5500/challenge-29/company.json');
+   ajax.send();
+   ajax.addEventListener('loadend', function(){
+       var data = JSON.parse(handleResponse());
+       if(data)
+         fillNameCompany(data);
+       });
+    
+
+    table.on('click', function(event){
+      let target = event.target;
+      if(target.classList.contains('delete')){
+       table.deleteRow(target.parentNode.rowIndex);
+      };
+    });
+
+    button.on('click', function(event){
+      event.preventDefault();
+      table.insertLastRow(inputsForm.getValues());
+      });
+   
+ };
+
+
+ api();
 
 })();
