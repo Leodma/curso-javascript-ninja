@@ -29,4 +29,4 @@ nesse arquivo, dentro do `console.log`, o link para o pull request no seu
 projeto.
 */
 
-console.log('https://github.com/Leodma/cadastro-carros.git');
+console.log('https://github.com/Leodma/cadastro-carros/pull/1#issue-431775473');
