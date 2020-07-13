@@ -24,4 +24,4 @@ router.post('/', function(req, res) {
   res.json({ message: 'success' });
 });
 
-module.exports = router;
+module.export = router;
